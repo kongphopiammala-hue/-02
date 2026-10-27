@@ -1,0 +1,96 @@
+/* Custom CSS for TITAN HOBBY STORE */
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #080c14;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #00f2ff;
+}
+
+/* Glassmorphism effects */
+.glass-panel {
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Card Hover 3D Lift */
+.product-card {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.product-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(0, 242, 255, 0.4);
+  box-shadow: 0 10px 25px -5px rgba(0, 242, 255, 0.15);
+}
+
+/* Category pills active state */
+.cat-pill.active {
+  background-color: rgba(0, 242, 255, 0.15) !important;
+  color: #00f2ff !important;
+  border-color: rgba(0, 242, 255, 0.5) !important;
+  box-shadow: 0 0 12px rgba(0, 242, 255, 0.25);
+}
+
+/* Interactive Turntable styling */
+#turntableContainer {
+  perspective: 800px;
+}
+
+#turntableModel {
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+/* Preset angle active state */
+.preset-angle-btn.active {
+  background-color: #00f2ff !important;
+  color: #080c14 !important;
+  font-weight: 700;
+}
+
+/* Animations */
+@keyframes neonPulse {
+  0%, 100% {
+    opacity: 1;
+    filter: drop-shadow(0 0 8px rgba(0, 242, 255, 0.6));
+  }
+  50% {
+    opacity: 0.8;
+    filter: drop-shadow(0 0 2px rgba(0, 242, 255, 0.2));
+  }
+}
+
+.animate-neon-pulse {
+  animation: neonPulse 2.5s infinite ease-in-out;
+}
+
+/* Toast animation */
+@keyframes slideInUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.toast-enter {
+  animation: slideInUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}

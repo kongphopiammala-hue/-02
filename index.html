@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="th" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TITAN HOBBY & COLLECTIBLES - ศูนย์รวมโมเดลและฟิกเกอร์แท้ 100%</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700;800&family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            prompt: ['Prompt', 'sans-serif'],
+            chakra: ['Chakra Petch', 'sans-serif'],
+          },
+          colors: {
+            cyber: {
+              dark: '#080c14',
+              card: '#0f172a',
+              cardBorder: '#1e293b',
+              accent: '#00f2ff',
+              neonRed: '#ff2a5f',
+              neonYellow: '#ffb703',
+              purple: '#9d4edd',
+            }
+          },
+          boxShadow: {
+            'neon-cyan': '0 0 20px -3px rgba(0, 242, 255, 0.4)',
+            'neon-red': '0 0 20px -3px rgba(255, 42, 95, 0.4)',
+            'neon-yellow': '0 0 20px -3px rgba(255, 183, 3, 0.4)',
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-cyber-dark text-slate-100 font-prompt min-h-screen flex flex-col selection:bg-cyber-accent selection:text-black">
+
+  <!-- Top Announcement Bar -->
+  <div class="bg-gradient-to-r from-cyan-950 via-slate-900 to-rose-950 border-b border-cyan-500/30 text-xs py-2 px-4 text-center tracking-wide">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      <div class="hidden sm:flex items-center gap-2 text-cyan-400 font-chakra">
+        <i data-lucide="shield-check" class="w-4 h-4"></i>
+        <span>AUTHENTIC 100% JAPAN LOT & OFFICIAL LICENSE</span>
+      </div>
+      <div class="flex-1 sm:flex-initial text-center text-slate-300">
+        🔥 เปิดพรีออเดอร์ล็อตพิเศษ! สั่งจองวันนี้ รับฟรี <b>Titan Acrylic Display Stand</b> ของแถมลิมิเต็ด
+      </div>
+      <div class="hidden md:flex items-center gap-4 text-slate-400 font-chakra">
+        <span class="hover:text-cyan-400 cursor-pointer transition">LINE: @titanhobby</span>
+        <span>|</span>
+        <span class="hover:text-cyan-400 cursor-pointer transition">TRACKING PARCEL</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Navigation Bar -->
+  <header class="sticky top-0 z-40 bg-cyber-dark/90 backdrop-blur-md border-b border-cyber-cardBorder">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+      
+      <!-- Brand Logo -->
+      <a href="#" class="flex items-center gap-3 group">
+        <div class="relative w-11 h-11 bg-gradient-to-br from-cyan-500 via-blue-600 to-rose-600 p-[2px] rounded-lg shadow-neon-cyan transition-transform group-hover:scale-105">
+          <div class="w-full h-full bg-cyber-dark rounded-md flex items-center justify-center">
+            <i data-lucide="box" class="w-6 h-6 text-cyan-400 group-hover:rotate-12 transition-transform duration-300"></i>
+          </div>
+        </div>
+        <div>
+          <div class="font-chakra font-extrabold text-2xl tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-slate-100 to-rose-400">
+            TITAN<span class="text-cyber-accent text-sm ml-1 px-1.5 py-0.5 rounded border border-cyan-500/40 bg-cyan-950/40 font-mono">HOBBY</span>
+          </div>
+          <div class="text-[10px] text-slate-400 tracking-widest uppercase font-chakra -mt-1">
+            Premium Collectibles Studio
+          </div>
+        </div>
+      </a>
+
+      <!-- Search Input -->
+      <div class="hidden lg:flex flex-1 max-w-md relative mx-4">
+        <input 
+          id="searchInput" 
+          type="text" 
+          placeholder="ค้นหาชื่อโมเดล, ซีรีส์, สเกล เช่น Gundam, EVA, 1/7..." 
+          class="w-full bg-cyber-card/80 border border-slate-700/80 rounded-full py-2.5 pl-11 pr-4 text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition"
+        />
+        <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-4 top-3.5 pointer-events-none"></i>
+        <button id="clearSearchBtn" class="hidden absolute right-3.5 top-3 text-slate-400 hover:text-slate-200">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex items-center gap-3 sm:gap-4">
+        <!-- Filter Modal Trigger (Mobile) -->
+        <button id="mobileSearchToggle" class="lg:hidden p-2.5 rounded-lg bg-slate-800/80 hover:bg-slate-700 border border-slate-700 text-slate-300">
+          <i data-lucide="search" class="w-5 h-5"></i>
+        </button>
+
+        <!-- Wishlist -->
+        <button class="relative p-2.5 rounded-lg bg-slate-800/80 hover:bg-slate-700 border border-slate-700 text-slate-300 transition hover:text-rose-400 group">
+          <i data-lucide="heart" class="w-5 h-5 transition-transform group-hover:scale-110"></i>
+          <span id="wishlistBadge" class="absolute -top-1 -right-1 bg-cyber-neonRed text-white text-[10px] font-bold px-1.5 py-0.2 rounded-full min-w-[18px] text-center">0</span>
+        </button>
+
+        <!-- Cart Trigger -->
+        <button id="cartDrawerBtn" class="relative flex items-center gap-2.5 px-4 py-2.5 rounded-lg bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-slate-900 font-semibold font-chakra transition shadow-neon-cyan group">
+          <i data-lucide="shopping-bag" class="w-5 h-5 text-slate-950 transition-transform group-hover:-translate-y-0.5"></i>
+          <span class="hidden sm:inline font-bold text-slate-950 text-sm">ตระกร้า</span>
+          <span id="cartCountBadge" class="bg-slate-950 text-cyan-300 text-xs font-bold px-2 py-0.5 rounded-full font-mono">0</span>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Mobile Search Bar (Collapsible) -->
+    <div id="mobileSearchBar" class="hidden lg:hidden px-4 pb-3 border-t border-slate-800 pt-2">
+      <div class="relative">
+        <input 
+          id="mobileSearchInput" 
+          type="text" 
+          placeholder="ค้นหาชื่อโมเดล, ซีรีส์..." 
+          class="w-full bg-cyber-card border border-slate-700 rounded-full py-2.5 pl-11 pr-4 text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:border-cyan-400"
+        />
+        <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-4 top-3.5"></i>
+      </div>
+    </div>
+
+    <!-- Category Nav Strip -->
+    <div class="border-t border-slate-800/60 bg-cyber-dark/50 overflow-x-auto scrollbar-none">
+      <div class="max-w-7xl mx-auto px-4 flex items-center gap-2 py-2 text-xs font-chakra font-medium whitespace-nowrap">
+        <button class="cat-pill active px-3.5 py-1.5 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/40" data-category="all">
+          <i data-lucide="layout-grid" class="w-3.5 h-3.5 inline mr-1 -mt-0.5"></i> ทั้งหมด (ALL)
+        </button>
+        <button class="cat-pill px-3.5 py-1.5 rounded-full bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800 hover:border-slate-700" data-category="gunpla">
+          🤖 GUNPLA & MECHA
+        </button>
+        <button class="cat-pill px-3.5 py-1.5 rounded-full bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800 hover:border-slate-700" data-category="scale">
+          🎎 SCALE FIGURES (1/6, 1/7)
+        </button>
+        <button class="cat-pill px-3.5 py-1.5 rounded-full bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800 hover:border-slate-700" data-category="arttoy">
+          🎨 ART TOYS & BLIND BOX
+        </button>
+        <button class="cat-pill px-3.5 py-1.5 rounded-full bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800 hover:border-slate-700 text-rose-400" data-category="preorder">
+          🔥 PRE-ORDER HOT ITEMS
+        </button>
+        <button class="cat-pill px-3.5 py-1.5 rounded-full bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800 hover:border-slate-700 text-emerald-400" data-category="instock">
+          📦 พร้อมส่ง (IN-STOCK)
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Highlight Section (Pre-order Spotlight + 3D/360 Showcase) -->
+  <section class="relative overflow-hidden bg-gradient-to-b from-slate-950 via-cyber-dark to-slate-950 border-b border-cyber-cardBorder py-12 lg:py-16">
+    <!-- Ambient Sci-Fi Glows -->
+    <div class="absolute -top-32 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute -bottom-32 right-1/4 w-96 h-96 bg-rose-600/10 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(#1e293b_1px,transparent_1px)] [background-size:24px_24px] opacity-25 pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+        
+        <!-- Left: Pre-order Info & Urgency -->
+        <div class="lg:col-span-7 space-y-6">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-500/10 border border-rose-500/30 text-rose-400 text-xs font-chakra tracking-widest uppercase">
+            <span class="w-2 h-2 rounded-full bg-rose-500 animate-ping"></span>
+            PRE-ORDER SPOTLIGHT • ล็อตพิเศษโควตาจำกัด
+          </div>
+
+          <div class="space-y-2">
+            <div class="text-xs font-mono text-cyan-400 tracking-wider">BANDAI SPIRITS • PERFECT GRADE 1/60</div>
+            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-chakra tracking-tight leading-tight text-white">
+              PG 1/60 UNICORN GUNDAM <br class="hidden sm:block"/>
+              <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-sky-300 to-indigo-300">
+                PERFECTIBILITY DIVINE
+              </span>
+            </h1>
+            <p class="text-slate-300 text-sm sm:text-base leading-relaxed pt-1">
+              สุดยอดมาสเตอร์พีซแห่งปี 2026 พร้อมชุดเกราะ Divine Armor, ไซโคเฟรมเรืองแสง Blue Psycho Frame, ระบบแปลงร่าง Destroy Mode สมบูรณ์แบบ 100% ลิขสิทธิ์แท้ Bandai Japan
+            </p>
+          </div>
+
+          <!-- Badges Grid -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+            <div class="bg-slate-900/80 border border-slate-800 p-2.5 rounded-lg">
+              <span class="text-slate-400 block text-[10px]">สเกล / ขนาด</span>
+              <span class="font-chakra font-bold text-cyan-300 text-sm">1/60 (สูง 45 cm)</span>
+            </div>
+            <div class="bg-slate-900/80 border border-slate-800 p-2.5 rounded-lg">
+              <span class="text-slate-400 block text-[10px]">ค่ายผู้ผลิต</span>
+              <span class="font-chakra font-bold text-slate-200 text-sm">Bandai Spirits</span>
+            </div>
+            <div class="bg-slate-900/80 border border-slate-800 p-2.5 rounded-lg">
+              <span class="text-slate-400 block text-[10px]">กำหนดวางจำหน่าย</span>
+              <span class="font-chakra font-bold text-amber-400 text-sm">ธ.ค. 2026</span>
+            </div>
+            <div class="bg-slate-900/80 border border-slate-800 p-2.5 rounded-lg">
+              <span class="text-slate-400 block text-[10px]">โควตาสิทธิ์จอง</span>
+              <span class="font-chakra font-bold text-rose-400 text-sm">เหลือเพียง 4 ตัว</span>
+            </div>
+          </div>
+
+          <!-- Countdown Timer Box -->
+          <div class="bg-cyber-card/90 border border-cyan-500/30 p-4 rounded-xl shadow-neon-cyan/20">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-chakra text-cyan-300 uppercase flex items-center gap-1.5">
+                <i data-lucide="clock" class="w-3.5 h-3.5 text-cyan-400"></i>
+                เวลานับถอยหลังก่อนปิดรอบรับจอง
+              </span>
+              <span class="text-[11px] text-slate-400">ปิดรับ: 31 พ.ค. 2026 หรือจนกว่าสิทธิ์จะเต็ม</span>
+            </div>
+            <div class="grid grid-cols-4 gap-2 text-center font-chakra">
+              <div class="bg-slate-950/90 rounded-lg p-2 border border-slate-800">
+                <span id="cd-days" class="text-2xl font-black text-cyan-400 font-mono">04</span>
+                <span class="block text-[10px] text-slate-400 uppercase">วัน</span>
+              </div>
+              <div class="bg-slate-950/90 rounded-lg p-2 border border-slate-800">
+                <span id="cd-hours" class="text-2xl font-black text-cyan-400 font-mono">18</span>
+                <span class="block text-[10px] text-slate-400 uppercase">ชั่วโมง</span>
+              </div>
+              <div class="bg-slate-950/90 rounded-lg p-2 border border-slate-800">
+                <span id="cd-minutes" class="text-2xl font-black text-cyan-400 font-mono">32</span>
+                <span class="block text-[10px] text-slate-400 uppercase">นาที</span>
+              </div>
+              <div class="bg-slate-950/90 rounded-lg p-2 border border-slate-800">
+                <span id="cd-seconds" class="text-2xl font-black text-rose-400 font-mono">45</span>
+                <span class="block text-[10px] text-slate-400 uppercase">วินาที</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Price & CTA Buttons -->
+          <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-2">
+            <div>
+              <div class="text-xs text-slate-400">ราคาเต็ม: <span class="line-through">฿13,900</span> <span class="text-emerald-400 font-bold">฿12,500</span></div>
+              <div class="text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-white font-chakra">
+                เปิดจองมัดจำ <span class="text-3xl text-cyan-300">฿2,500</span>
+              </div>
+            </div>
+            <div class="flex-1 flex gap-2">
+              <button onclick="quickPreOrderHero()" class="flex-1 py-3 px-6 rounded-xl bg-gradient-to-r from-rose-600 via-rose-500 to-orange-500 hover:from-rose-500 hover:to-orange-400 text-white font-bold font-chakra text-base transition shadow-neon-red flex items-center justify-center gap-2">
+                <i data-lucide="zap" class="w-5 h-5"></i>
+                <span>จองล่วงหน้าทันที</span>
+              </button>
+              <button onclick="openProductModal(heroProductData.id)" class="py-3 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition flex items-center justify-center">
+                <i data-lucide="info" class="w-5 h-5"></i>
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right: Interactive 360 / 3D Model Display Turntable -->
+        <div class="lg:col-span-5 flex flex-col items-center">
+          <div class="relative w-full aspect-square max-w-md bg-gradient-to-b from-slate-900 to-slate-950 rounded-2xl border border-cyan-500/40 p-4 shadow-2xl flex flex-col justify-between overflow-hidden group">
+            
+            <!-- Top Controls in Preview -->
+            <div class="flex items-center justify-between z-10">
+              <span class="bg-cyan-950/80 border border-cyan-500/40 text-cyan-300 text-[10px] font-mono px-2.5 py-1 rounded-full flex items-center gap-1">
+                <i data-lucide="rotate-3d" class="w-3.5 h-3.5"></i>
+                <span>360° INTERACTIVE TURNTABLE</span>
+              </span>
+              <span class="text-[11px] text-slate-400 flex items-center gap-1">
+                <i data-lucide="mouse-pointer" class="w-3.5 h-3.5 text-cyan-400"></i> ลากเมาส์หมุนมุมมอง
+              </span>
+            </div>
+
+            <!-- Interactive Stage Area -->
+            <div id="turntableContainer" class="relative flex-1 flex items-center justify-center cursor-grab active:cursor-grabbing select-none my-2">
+              <!-- Hologram Grid Platform -->
+              <div class="absolute bottom-4 w-64 h-24 border border-cyan-500/30 rounded-full [transform:rotateX(68deg)] shadow-[0_0_50px_rgba(0,242,255,0.2)] bg-cyan-500/5 pointer-events-none"></div>
+              <div class="absolute bottom-4 w-44 h-16 border border-rose-500/30 rounded-full [transform:rotateX(68deg)] pointer-events-none animate-pulse"></div>
+
+              <!-- Turntable Image Layer -->
+              <div id="turntableModel" class="relative z-10 transition-transform duration-75 flex items-center justify-center">
+                <img 
+                  id="heroTurntableImg"
+                  src="https://images.unsplash.com/photo-1593085512500-5d55148d6f0d?auto=format&fit=crop&w=700&q=80" 
+                  alt="PG Unicorn Gundam Preview" 
+                  class="max-h-72 object-contain filter drop-shadow-[0_15px_25px_rgba(0,242,255,0.25)] pointer-events-none transition-all duration-300"
+                />
+              </div>
+
+              <!-- Angle Indicator -->
+              <div class="absolute bottom-2 left-1/2 -translate-x-1/2 bg-slate-950/80 px-3 py-0.5 rounded-full border border-slate-800 text-[10px] font-mono text-cyan-300">
+                ROTATION: <span id="turntableDegree">0</span>°
+              </div>
+            </div>
+
+            <!-- Bottom Rotation Presets -->
+            <div class="grid grid-cols-4 gap-1.5 z-10 pt-2 border-t border-slate-800">
+              <button onclick="rotateTurntableTo(0)" class="preset-angle-btn active py-1 text-center bg-slate-800 hover:bg-slate-700 text-xs rounded text-slate-300 font-mono">0° หน้า</button>
+              <button onclick="rotateTurntableTo(90)" class="preset-angle-btn py-1 text-center bg-slate-800 hover:bg-slate-700 text-xs rounded text-slate-300 font-mono">90° ข้าง</button>
+              <button onclick="rotateTurntableTo(180)" class="preset-angle-btn py-1 text-center bg-slate-800 hover:bg-slate-700 text-xs rounded text-slate-300 font-mono">180° หลัง</button>
+              <button onclick="rotateTurntableTo(270)" class="preset-angle-btn py-1 text-center bg-slate-800 hover:bg-slate-700 text-xs rounded text-slate-300 font-mono">270° ขวา</button>
+            </div>
+
+          </div>
+
+          <!-- Quick Scale Comparison Tip -->
+          <div class="flex items-center gap-2 text-xs text-slate-400 mt-3">
+            <i data-lucide="maximize-2" class="w-4 h-4 text-cyan-400"></i>
+            <span>ความสูงเทียบเท่าขวดน้ำ 1.5 ลิตร (ขนาดตู้โชว์มาตรฐานวางได้พอดี)</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Value Propositions / Trust Bar -->
+  <section class="border-b border-cyber-cardBorder bg-slate-950/60 py-6">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        
+        <div class="flex items-center gap-3 p-3 rounded-xl bg-slate-900/40 border border-slate-800/80">
+          <div class="p-2.5 rounded-lg bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
+            <i data-lucide="badge-check" class="w-6 h-6"></i>
+          </div>
+          <div>
+            <div class="font-chakra font-bold text-sm text-slate-100">แท้ 100% ทุกรายการ</div>
+            <div class="text-xs text-slate-400">ล็อตญี่ปุ่น / ตัวแทนจำหน่ายถูกกฎหมาย</div>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3 p-3 rounded-xl bg-slate-900/40 border border-slate-800/80">
+          <div class="p-2.5 rounded-lg bg-rose-500/10 text-rose-400 border border-rose-500/20">
+            <i data-lucide="package-search" class="w-6 h-6"></i>
+          </div>
+          <div>
+            <div class="font-chakra font-bold text-sm text-slate-100">แพ็กประกบกล่องหนา 5 ชั้น</div>
+            <div class="text-xs text-slate-400">ห่อบับเบิ้ลกันกระแทกกล่องไม่บุบ</div>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3 p-3 rounded-xl bg-slate-900/40 border border-slate-800/80">
+          <div class="p-2.5 rounded-lg bg-amber-500/10 text-amber-400 border border-amber-500/20">
+            <i data-lucide="calendar-check" class="w-6 h-6"></i>
+          </div>
+          <div>
+            <div class="font-chakra font-bold text-sm text-slate-100">การันตีได้ของแน่นอน</div>
+            <div class="text-xs text-slate-400">ระบบใบเสร็จจอง และอัปเดตสถานะล็อต</div>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3 p-3 rounded-xl bg-slate-900/40 border border-slate-800/80">
+          <div class="p-2.5 rounded-lg bg-purple-500/10 text-purple-400 border border-purple-500/20">
+            <i data-lucide="credit-card" class="w-6 h-6"></i>
+          </div>
+          <div>
+            <div class="font-chakra font-bold text-sm text-slate-100">ผ่อน 0% นานสูงสุด 6 เดือน</div>
+            <div class="text-xs text-slate-400">หรือเลือกจ่ายมัดจำแล้วจ่ายที่เหลือตอนของมา</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Filter Controls & Catalog Section -->
+  <main class="flex-1 py-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+    
+    <!-- Filter Bar Header -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+      <div>
+        <h2 class="text-2xl font-bold font-chakra text-white flex items-center gap-2">
+          <span>CATALOG & PRE-ORDERS</span>
+          <span id="productTotalCount" class="text-xs px-2 py-0.5 rounded-full bg-cyan-950 text-cyan-400 border border-cyan-800 font-mono">12 รายการ</span>
+        </h2>
+        <p class="text-slate-400 text-xs">เลือกดูโมเดลที่เปิดรับพรีออเดอร์และพร้อมจัดส่งทันที</p>
+      </div>
+
+      <!-- Filters & Sort Actions -->
+      <div class="flex flex-wrap items-center gap-2.5">
+        
+        <!-- Filter Status Dropdown -->
+        <div class="relative">
+          <select id="statusFilter" class="bg-cyber-card border border-slate-700 text-xs text-slate-300 rounded-lg px-3 py-2 pr-8 appearance-none focus:outline-none focus:border-cyan-400 cursor-pointer">
+            <option value="all">สถานะทั้งหมด</option>
+            <option value="preorder">เฉพาะพรีออเดอร์ (Pre-order)</option>
+            <option value="instock">เฉพาะพร้อมส่ง (In-Stock)</option>
+            <option value="limited">เฉพาะ Limited Edition</option>
+          </select>
+          <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-slate-400 absolute right-2.5 top-3 pointer-events-none"></i>
+        </div>
+
+        <!-- Filter Scale Dropdown -->
+        <div class="relative">
+          <select id="scaleFilter" class="bg-cyber-card border border-slate-700 text-xs text-slate-300 rounded-lg px-3 py-2 pr-8 appearance-none focus:outline-none focus:border-cyan-400 cursor-pointer">
+            <option value="all">สเกลทั้งหมด</option>
+            <option value="1/60">1/60 (PG)</option>
+            <option value="1/100">1/100 (MG)</option>
+            <option value="1/144">1/144 (RG / HG)</option>
+            <option value="1/7">1/7 Scale</option>
+            <option value="1/6">1/6 Scale</option>
+            <option value="Non-scale">Non-scale / Blind Box</option>
+          </select>
+          <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-slate-400 absolute right-2.5 top-3 pointer-events-none"></i>
+        </div>
+
+        <!-- Sort Dropdown -->
+        <div class="relative">
+          <select id="sortOrder" class="bg-cyber-card border border-slate-700 text-xs text-slate-300 rounded-lg px-3 py-2 pr-8 appearance-none focus:outline-none focus:border-cyan-400 cursor-pointer">
+            <option value="popular">ยอดนิยม (Most Popular)</option>
+            <option value="price-asc">ราคา: น้อยไปมาก</option>
+            <option value="price-desc">ราคา: มากไปน้อย</option>
+            <option value="newest">เปิดพรีล่าสุด</option>
+          </select>
+          <i data-lucide="arrow-down-up" class="w-3.5 h-3.5 text-slate-400 absolute right-2.5 top-3 pointer-events-none"></i>
+        </div>
+
+        <!-- Reset Button -->
+        <button id="resetFiltersBtn" class="text-xs text-slate-400 hover:text-cyan-400 px-2 py-1 flex items-center gap-1 transition">
+          <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i> ล้างตัวกรอง
+        </button>
+
+      </div>
+    </div>
+
+    <!-- Active Filters Tags (Dynamic) -->
+    <div id="activeFiltersContainer" class="hidden flex-wrap items-center gap-2 mb-6">
+      <span class="text-xs text-slate-400">ตัวกรองปัจจุบัน:</span>
+      <div id="activeTagsList" class="flex flex-wrap gap-1.5"></div>
+    </div>
+
+    <!-- Product Grid -->
+    <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <!-- Generated via JS -->
+    </div>
+
+    <!-- Empty State -->
+    <div id="emptyState" class="hidden text-center py-16">
+      <div class="w-16 h-16 bg-slate-900 border border-slate-800 rounded-full flex items-center justify-center mx-auto mb-4 text-slate-500">
+        <i data-lucide="box" class="w-8 h-8"></i>
+      </div>
+      <h3 class="font-chakra font-bold text-lg text-slate-300">ไม่พบโมเดลตามเงื่อนไขที่เลือก</h3>
+      <p class="text-slate-500 text-sm mt-1">ลองเปลี่ยนคำค้นหา หรือรีเซ็ตตัวกรองเพื่อค้นหาใหม่</p>
+      <button onclick="resetAllFilters()" class="mt-4 px-4 py-2 rounded-lg bg-cyan-900/40 text-cyan-400 border border-cyan-800 text-xs font-chakra hover:bg-cyan-900/60 transition">
+        รีเซ็ตตัวกรองทั้งหมด
+      </button>
+    </div>
+
+  </main>
+
+  <!-- Collector's Hall of Fame (Review & Customer Showcase Section) -->
+  <section class="border-t border-cyber-cardBorder bg-slate-950 py-14 overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="flex flex-col md:flex-row items-start md:items-end justify-between gap-4 mb-10">
+        <div>
+          <div class="text-xs font-mono text-cyan-400 uppercase tracking-widest">COMMUNITY SHOWCASE</div>
+          <h2 class="text-2xl sm:text-3xl font-extrabold font-chakra text-white mt-1">
+            COLLECTOR'S HALL OF FAME
+          </h2>
+          <p class="text-slate-400 text-sm">ภาพรีวิวส่งจริงจากตู้โชว์ของลูกค้าจริงทั่วประเทศ</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <div class="flex items-center gap-1 text-amber-400">
+            <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+          </div>
+          <span class="text-xs text-slate-300 font-mono font-bold">4.98 / 5.0 (520+ Reviews)</span>
+        </div>
+      </div>
+
+      <!-- Showcase Cards Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <!-- Showcase 1 -->
+        <div class="bg-cyber-card border border-cyber-cardBorder rounded-xl overflow-hidden hover:border-cyan-500/40 transition group">
+          <div class="relative aspect-video overflow-hidden bg-slate-900">
+            <img 
+              src="https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?auto=format&fit=crop&w=600&q=80" 
+              alt="Review from Collector Art" 
+              class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+            />
+            <span class="absolute bottom-2 left-2 bg-slate-950/80 backdrop-blur-sm text-[10px] text-cyan-300 px-2 py-0.5 rounded border border-cyan-500/30 font-mono">
+              PG UNICORN GUNDAM
+            </span>
+          </div>
+          <div class="p-4">
+            <div class="flex items-center justify-between mb-2">
+              <span class="font-bold text-sm text-slate-200">คุณอรรถพล ก. (กรุงเทพฯ)</span>
+              <span class="text-[10px] text-emerald-400 font-mono flex items-center gap-0.5">
+                <i data-lucide="badge-check" class="w-3.5 h-3.5"></i> ตรวจสอบแล้ว
+              </span>
+            </div>
+            <p class="text-slate-400 text-xs italic">
+              "ห่อบับเบิ้ลมาหนามาก มุมกล่องคมกริบ 100% สภาพกล่องไร้รอยขีดข่วนเลยครับ เปิดจองมัดจำไว้ ถึงเวลาแจ้งเตือนตรงตามรอบ ประทับใจมากครับ!"
+            </p>
+          </div>
+        </div>
+
+        <!-- Showcase 2 -->
+        <div class="bg-cyber-card border border-cyber-cardBorder rounded-xl overflow-hidden hover:border-cyan-500/40 transition group">
+          <div class="relative aspect-video overflow-hidden bg-slate-900">
+            <img 
+              src="https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&w=600&q=80" 
+              alt="Review Neon Figure" 
+              class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+            />
+            <span class="absolute bottom-2 left-2 bg-slate-950/80 backdrop-blur-sm text-[10px] text-rose-300 px-2 py-0.5 rounded border border-rose-500/30 font-mono">
+              SCALE 1/7 ASUKA SHIKINAMI
+            </span>
+          </div>
+          <div class="p-4">
+            <div class="flex items-center justify-between mb-2">
+              <span class="font-bold text-sm text-slate-200">คุณธนภัทร ภ. (เชียงใหม่)</span>
+              <span class="text-[10px] text-emerald-400 font-mono flex items-center gap-0.5">
+                <i data-lucide="badge-check" class="w-3.5 h-3.5"></i> ตรวจสอบแล้ว
+              </span>
+            </div>
+            <p class="text-slate-400 text-xs italic">
+              "ล็อตญี่ปุ่นแท้แน่นอน สติ๊กเกอร์โฮโลแกรมครบ รายละเอียดใบหน้าคมมาก ฟิกเกอร์ไม่มีตำหนิเลย ร้านตอบแชทไวและให้คำแนะนำดีมากครับ"
+            </p>
+          </div>
+        </div>
+
+        <!-- Showcase 3 -->
+        <div class="bg-cyber-card border border-cyber-cardBorder rounded-xl overflow-hidden hover:border-cyan-500/40 transition group">
+          <div class="relative aspect-video overflow-hidden bg-slate-900">
+            <img 
+              src="https://images.unsplash.com/photo-1566576912321-d58ddd7a6088?auto=format&fit=crop&w=600&q=80" 
+              alt="Review Art Toy Blind Box" 
+              class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+            />
+            <span class="absolute bottom-2 left-2 bg-slate-950/80 backdrop-blur-sm text-[10px] text-amber-300 px-2 py-0.5 rounded border border-amber-500/30 font-mono">
+              SKULLPANDA BLIND BOX SET
+            </span>
+          </div>
+          <div class="p-4">
+            <div class="flex items-center justify-between mb-2">
+              <span class="font-bold text-sm text-slate-200">คุณพิมพ์ชนก ว. (นนทบุรี)</span>
+              <span class="text-[10px] text-emerald-400 font-mono flex items-center gap-0.5">
+                <i data-lucide="badge-check" class="w-3.5 h-3.5"></i> ตรวจสอบแล้ว
+              </span>
+            </div>
+            <p class="text-slate-400 text-xs italic">
+              "ยก Box มา สภาพซีลพลาสติกเรียบร้อยดีมาก ลุ้นซีเคร็ทแตก! ขอบคุณของแถมฐานอะคริลิกด้วยนะคะ สวยมากๆ เลยค่า"
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Interactive Product Detail Modal -->
+  <div id="productModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/80 backdrop-blur-md overflow-y-auto">
+    <div class="bg-cyber-card border border-cyan-500/40 rounded-2xl max-w-4xl w-full overflow-hidden shadow-2xl relative my-8">
+      
+      <!-- Close Button -->
+      <button onclick="closeProductModal()" class="absolute top-4 right-4 z-20 w-8 h-8 rounded-full bg-slate-900/80 hover:bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center border border-slate-700 transition">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <div class="grid grid-cols-1 md:grid-cols-2">
+        
+        <!-- Left: Image & Interactive Angle Preview -->
+        <div class="p-6 bg-slate-950 flex flex-col justify-between border-b md:border-b-0 md:border-r border-slate-800">
+          <div>
+            <div class="relative aspect-square rounded-xl overflow-hidden bg-slate-900 border border-slate-800 flex items-center justify-center mb-3">
+              <img id="modalMainImg" src="" alt="Product Detail" class="max-h-72 object-contain transition-all duration-300"/>
+              <div id="modalStatusBadge" class="absolute top-3 left-3 text-[10px] font-mono px-2 py-0.5 rounded font-bold"></div>
+            </div>
+
+            <!-- Thumbnail Angles -->
+            <div id="modalThumbnails" class="grid grid-cols-4 gap-2">
+              <!-- JS injected -->
+            </div>
+          </div>
+
+          <!-- Scale Visualizer Card -->
+          <div class="mt-4 p-3 rounded-lg bg-slate-900/90 border border-slate-800">
+            <div class="flex items-center justify-between text-xs text-slate-300 font-chakra mb-1.5">
+              <span class="flex items-center gap-1 text-cyan-400">
+                <i data-lucide="ruler" class="w-3.5 h-3.5"></i> สเกลเทียบขนาดจริง
+              </span>
+              <span id="modalDimensionsText" class="font-mono text-slate-400">สูงประมาณ 30 cm</span>
+            </div>
+            <!-- Visual Scale Bar comparison -->
+            <div class="h-2 w-full bg-slate-800 rounded-full overflow-hidden flex">
+              <div id="modalScaleRatioBar" class="bg-gradient-to-r from-cyan-500 to-blue-500 h-full w-2/3"></div>
+            </div>
+            <div class="flex justify-between text-[10px] text-slate-500 mt-1 font-mono">
+              <span>0 cm</span>
+              <span>กระป๋องน้ำ (12cm)</span>
+              <span>ขวดน้ำ (30cm)</span>
+              <span>50 cm+</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Specifications & Buying Actions -->
+        <div class="p-6 flex flex-col justify-between space-y-4">
+          <div class="space-y-3">
+            <div class="text-xs font-mono text-cyan-400" id="modalManufacturer">BANDAI SPIRITS</div>
+            <h3 id="modalTitle" class="text-xl sm:text-2xl font-bold font-chakra text-white leading-snug">
+              ชื่อสินค้า
+            </h3>
+            
+            <!-- Price Block -->
+            <div class="p-3.5 rounded-xl bg-slate-900 border border-slate-800/80">
+              <div class="flex items-baseline justify-between">
+                <div>
+                  <span class="text-xs text-slate-400 block">ราคาเต็ม (Full Price)</span>
+                  <span id="modalFullPrice" class="text-2xl font-extrabold text-white font-chakra">฿0</span>
+                </div>
+                <div class="text-right">
+                  <span class="text-xs text-cyan-400 block">มัดจำสั่งจอง (Deposit)</span>
+                  <span id="modalDepositPrice" class="text-xl font-bold text-cyan-300 font-chakra">฿0</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Details Spec Table -->
+            <div class="space-y-1.5 text-xs">
+              <div class="flex justify-between py-1 border-b border-slate-800/60">
+                <span class="text-slate-400">ซีรีส์ (Series):</span>
+                <span id="modalSeries" class="text-slate-200 font-medium">Gundam</span>
+              </div>
+              <div class="flex justify-between py-1 border-b border-slate-800/60">
+                <span class="text-slate-400">สเกล / วัสดุ:</span>
+                <span id="modalMaterial" class="text-slate-200 font-medium">1/60 • PVC, ABS, Diecast</span>
+              </div>
+              <div class="flex justify-between py-1 border-b border-slate-800/60">
+                <span class="text-slate-400">กำหนดสินค้าถึงไทย:</span>
+                <span id="modalReleaseDate" class="text-amber-400 font-medium">พ.ย. - ธ.ค. 2026</span>
+              </div>
+              <div class="flex justify-between py-1 border-b border-slate-800/60">
+                <span class="text-slate-400">ประเภทล็อต:</span>
+                <span class="text-emerald-400 font-medium">ล็อตตัวแทนแท้ 100% มีสติ๊กเกอร์แมวทอง</span>
+              </div>
+            </div>
+
+            <p id="modalDescription" class="text-slate-300 text-xs leading-relaxed pt-1">
+              คำอธิบายรายละเอียดสินค้า
+            </p>
+
+            <!-- Pre-order Option Selector -->
+            <div class="space-y-2 pt-2">
+              <label class="text-xs text-slate-300 font-bold block">ตัวเลือกการชำระเงิน:</label>
+              <div class="grid grid-cols-2 gap-2">
+                <label class="cursor-pointer border border-cyan-500/50 bg-cyan-950/20 p-2.5 rounded-lg flex items-center gap-2 text-xs">
+                  <input type="radio" name="paymentOption" value="deposit" checked class="text-cyan-400 focus:ring-0">
+                  <div>
+                    <span class="font-bold text-cyan-300 block">จ่ายมัดจำ</span>
+                    <span class="text-[10px] text-slate-400">จ่ายส่วนที่เหลือเมื่อของเข้า</span>
+                  </div>
+                </label>
+                <label class="cursor-pointer border border-slate-800 bg-slate-900/40 p-2.5 rounded-lg flex items-center gap-2 text-xs hover:border-slate-700">
+                  <input type="radio" name="paymentOption" value="full" class="text-cyan-400 focus:ring-0">
+                  <div>
+                    <span class="font-bold text-slate-200 block">จ่ายเต็มจำนวน</span>
+                    <span class="text-[10px] text-emerald-400">ส่งฟรี EMS ทันที</span>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Modal Action Button -->
+          <div class="flex gap-2 pt-2">
+            <button id="modalAddToCartBtn" class="flex-1 py-3 px-4 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-slate-950 font-bold font-chakra transition flex items-center justify-center gap-2">
+              <i data-lucide="shopping-cart" class="w-4 h-4"></i>
+              <span>เพิ่มลงตระกร้า</span>
+            </button>
+            <button id="modalWishlistBtn" class="p-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition">
+              <i data-lucide="heart" class="w-5 h-5"></i>
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Shopping Cart Drawer (Off-canvas) -->
+  <div id="cartDrawer" class="fixed inset-0 z-50 hidden">
+    <!-- Backdrop -->
+    <div id="cartBackdrop" class="absolute inset-0 bg-black/70 backdrop-blur-sm transition-opacity"></div>
+    
+    <!-- Drawer Panel -->
+    <div class="absolute right-0 top-0 bottom-0 max-w-md w-full bg-cyber-card border-l border-slate-800 p-6 flex flex-col justify-between shadow-2xl">
+      
+      <!-- Drawer Header -->
+      <div class="flex items-center justify-between pb-4 border-b border-slate-800">
+        <div class="flex items-center gap-2">
+          <i data-lucide="shopping-bag" class="w-5 h-5 text-cyan-400"></i>
+          <h3 class="font-chakra font-bold text-lg text-white">ตระกร้าสินค้าของคุณ</h3>
+          <span id="cartDrawerCount" class="text-xs bg-slate-800 text-cyan-400 px-2 py-0.5 rounded-full font-mono">0 รายการ</span>
+        </div>
+        <button id="closeCartBtn" class="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- Cart Item List -->
+      <div id="cartItemsContainer" class="flex-1 overflow-y-auto py-4 space-y-3">
+        <!-- Rendered by JS -->
+      </div>
+
+      <!-- Drawer Footer (Totals & Checkout) -->
+      <div class="pt-4 border-t border-slate-800 space-y-3">
+        
+        <div class="space-y-1.5 text-xs text-slate-300">
+          <div class="flex justify-between">
+            <span class="text-slate-400">ยอดรวมสินค้า (Total):</span>
+            <span id="cartSubtotalText" class="font-mono text-white font-bold">฿0</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-slate-400">ยอดมัดจำที่ต้องชำระตอนนี้:</span>
+            <span id="cartDepositDueText" class="font-mono text-cyan-300 font-bold">฿0</span>
+          </div>
+          <div class="flex justify-between text-[11px] text-emerald-400">
+            <span>ค่าจัดส่ง:</span>
+            <span>ฟรีค่าจัดส่งทั่วประเทศ</span>
+          </div>
+        </div>
+
+        <button id="checkoutBtn" class="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-slate-950 font-chakra font-extrabold text-base transition shadow-neon-cyan flex items-center justify-center gap-2">
+          <span>ดำเนินการสั่งซื้อ & ชำระเงิน</span>
+          <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        </button>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Checkout & Payment Simulation Modal -->
+  <div id="checkoutModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/80 backdrop-blur-md overflow-y-auto">
+    <div class="bg-cyber-card border border-cyan-500/40 rounded-2xl max-w-lg w-full p-6 shadow-2xl relative my-8">
+      
+      <!-- Close Button -->
+      <button onclick="closeCheckoutModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <!-- Step Indicator -->
+      <div class="flex items-center justify-between border-b border-slate-800 pb-4 mb-4">
+        <div>
+          <span class="text-[10px] text-cyan-400 font-mono tracking-wider">CHECKOUT GATEWAY</span>
+          <h3 class="font-chakra font-bold text-xl text-white">ชำระเงินและยืนยันคำสั่งซื้อ</h3>
+        </div>
+      </div>
+
+      <!-- Step 1: Customer Form -->
+      <div id="checkoutFormStep" class="space-y-4">
+        <div>
+          <label class="text-xs text-slate-300 block mb-1">ชื่อ-นามสกุล ผู้รับพัสดุ *</label>
+          <input id="orderName" type="text" placeholder="เช่น นายสมชาย นักสะสม" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-200 focus:outline-none focus:border-cyan-400"/>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="text-xs text-slate-300 block mb-1">เบอร์โทรศัพท์มือถือ *</label>
+            <input id="orderPhone" type="tel" placeholder="08x-xxx-xxxx" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-200 focus:outline-none focus:border-cyan-400"/>
+          </div>
+          <div>
+            <label class="text-xs text-slate-300 block mb-1">LINE ID (สำหรับแจ้งเตือนของเข้า)</label>
+            <input id="orderEmail" type="text" placeholder="@yourlineid" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-200 focus:outline-none focus:border-cyan-400"/>
+          </div>
+        </div>
+
+        <div>
+          <label class="text-xs text-slate-300 block mb-1">ที่อยู่จัดส่งพัสดุ *</label>
+          <textarea id="orderAddress" rows="2" placeholder="บ้านเลขที่, ถนน, ตำบล/แขวง, อำเภอ/เขต, จังหวัด, รหัสไปรษณีย์" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-200 focus:outline-none focus:border-cyan-400"></textarea>
+        </div>
+
+        <!-- Order Summary Box -->
+        <div class="bg-slate-950 p-3 rounded-lg border border-slate-800 text-xs space-y-1">
+          <div class="flex justify-between text-slate-400">
+            <span>ยอดชำระที่ต้องโอน (ตามตัวเลือก):</span>
+            <span id="checkoutAmountText" class="font-mono text-cyan-400 font-bold text-sm">฿0</span>
+          </div>
+        </div>
+
+        <button onclick="goToPaymentStep()" class="w-full py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-chakra font-bold text-sm transition">
+          ไปที่หน้าชำระเงิน QR PromptPay
+        </button>
+      </div>
+
+      <!-- Step 2: QR PromptPay Simulation -->
+      <div id="checkoutPaymentStep" class="hidden text-center space-y-4">
+        <div class="p-4 bg-white rounded-xl inline-block shadow-lg mx-auto">
+          <!-- PromptPay QR Code Mockup -->
+          <div class="w-48 h-48 bg-slate-100 flex flex-col items-center justify-center p-2 border-2 border-slate-300 rounded relative">
+            <div class="text-[10px] font-bold text-blue-900 uppercase tracking-wider mb-1">Thai QR Payment</div>
+            <img 
+              src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=TITAN_MODEL_STORE_PAYMENT_SIMULATION" 
+              alt="PromptPay QR Code" 
+              class="w-36 h-36 object-contain"
+            />
+            <div class="text-[9px] text-slate-600 mt-1 font-mono">TITAN HOBBY CO., LTD.</div>
+          </div>
+        </div>
+
+        <div class="text-xs text-slate-300">
+          สแกนชำระเงินจำนวน: <span id="paymentQrAmount" class="text-lg font-bold text-cyan-400 font-mono">฿0</span>
+        </div>
+
+        <div class="bg-slate-900 border border-slate-800 p-3 rounded-lg text-[11px] text-slate-400 text-left space-y-1">
+          <div>• บัญชี: บจก. ไททัน ฮอบบี้ คอลเลกทิเบิลส์</div>
+          <div>• ธนาคาร: กสิกรไทย (KBANK) เลขที่บัญชี: xxx-x-xxxxx-x</div>
+          <div>• ระบบจะตรวจจับสลิปและยืนยันการจองอัตโนมัติภายใน 1 นาที</div>
+        </div>
+
+        <button onclick="completePaymentSimulation()" class="w-full py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-chakra font-bold text-sm transition flex items-center justify-center gap-2">
+          <i data-lucide="check-circle" class="w-4 h-4"></i>
+          <span>จำลองการโอนเงินสำเร็จ (คลิกเพื่อทดสอบ)</span>
+        </button>
+      </div>
+
+      <!-- Step 3: Success Confirmation -->
+      <div id="checkoutSuccessStep" class="hidden text-center py-6 space-y-4">
+        <div class="w-16 h-16 bg-emerald-500/20 text-emerald-400 rounded-full flex items-center justify-center mx-auto border border-emerald-500/40">
+          <i data-lucide="check" class="w-8 h-8"></i>
+        </div>
+        <h4 class="font-chakra font-extrabold text-2xl text-white">สั่งจองโมเดลสำเร็จแล้ว!</h4>
+        <p class="text-slate-300 text-xs max-w-sm mx-auto leading-relaxed">
+          หมายเลขคำสั่งซื้อของคุณ: <span id="confirmedOrderId" class="font-mono text-cyan-300 font-bold">#TH-2026-9841</span><br/>
+          ระบบได้ส่งใบเสร็จรับเงินและใบจองสินค้าไปยัง LINE/เบอร์โทรศัพท์ของคุณแล้ว
+        </p>
+        <button onclick="closeCheckoutModal(); clearCart();" class="px-6 py-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-chakra transition">
+          กลับสู่หน้าร้านค้า
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="border-t border-cyber-cardBorder bg-cyber-dark pt-12 pb-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+        
+        <div class="space-y-3">
+          <div class="flex items-center gap-2">
+            <div class="w-8 h-8 bg-cyan-500/20 rounded flex items-center justify-center text-cyan-400 border border-cyan-500/40">
+              <i data-lucide="box" class="w-5 h-5"></i>
+            </div>
+            <span class="font-chakra font-bold text-lg text-white">TITAN HOBBY</span>
+          </div>
+          <p class="text-slate-400 text-xs leading-relaxed">
+            ร้านค้าปลีกและศูนย์รับพรีออเดอร์โมเดล กันพลา ฟิกเกอร์ และของสะสมแท้ 100% จากผู้ผลิตชั้นนำทั่วโลก พร้อมหน้าร้านจริงและระบบจัดส่งระดับพรีเมียม
+          </p>
+        </div>
+
+        <div>
+          <h4 class="font-chakra font-bold text-sm text-slate-200 uppercase mb-3">หมวดหมู่สินค้า</h4>
+          <ul class="text-xs space-y-2 text-slate-400 font-chakra">
+            <li><a href="#" class="hover:text-cyan-400 transition">Gunpla PG / MG / RG</a></li>
+            <li><a href="#" class="hover:text-cyan-400 transition">Scale Figures 1/7 & 1/6</a></li>
+            <li><a href="#" class="hover:text-cyan-400 transition">Nendoroid & Figma</a></li>
+            <li><a href="#" class="hover:text-cyan-400 transition">Art Toy & Blind Box</a></li>
+            <li><a href="#" class="hover:text-cyan-400 transition">ตู้โชว์ & กล่องอะคริลิกกันฝุ่น</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="font-chakra font-bold text-sm text-slate-200 uppercase mb-3">นโยบายและการดูแล</h4>
+          <ul class="text-xs space-y-2 text-slate-400">
+            <li><a href="#" class="hover:text-cyan-400 transition">นโยบายการจองสินค้า (Pre-order Policy)</a></li>
+            <li><a href="#" class="hover:text-cyan-400 transition">การรับประกันกล่องคมและการเคลมสินค้า</a></li>
+            <li><a href="#" class="hover:text-cyan-400 transition">วิธีการชำระเงินและผ่อนชำระ 0%</a></li>
+            <li><a href="#" class="hover:text-cyan-400 transition">เช็กสถานะรอบพรีออเดอร์ที่กำลังเข้าไทย</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="font-chakra font-bold text-sm text-slate-200 uppercase mb-3">ติดต่อหน้าร้าน</h4>
+          <div class="text-xs text-slate-400 space-y-2">
+            <p>📍 โครงการ Hobby Mall ชั้น 2, ถนนสุขุมวิท, กรุงเทพฯ</p>
+            <p>🕒 เปิดทำการทุกวัน: 11:00 - 20:30 น.</p>
+            <p>📞 โทรศัพท์: 02-xxx-xxxx / 089-xxx-xxxx</p>
+            <p class="text-cyan-400 font-mono">LINE Official: @titanhobby</p>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="border-t border-slate-800/80 pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 font-chakra">
+        <div>© 2026 TITAN HOBBY & COLLECTIBLES. ALL RIGHTS RESERVED.</div>
+        <div class="flex items-center gap-4 mt-2 sm:mt-0">
+          <span>AUTHENTIC COLLECTOR STUDIO</span>
+          <span>•</span>
+          <span>THAILAND</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification Container -->
+  <div id="toastContainer" class="fixed bottom-6 right-6 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+  <!-- Scripts -->
+  <script src="app.js"></script>
+</body>
+</html>
